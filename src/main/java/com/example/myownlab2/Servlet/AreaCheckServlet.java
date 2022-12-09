@@ -12,11 +12,14 @@ import java.util.LinkedList;
 
 @WebServlet(name = "AreaCheckServlet", value = "/AreaCheckServlet")
 public class AreaCheckServlet extends HttpServlet {
-    private static Storage storage;
 
+    private static Storage storage;
+    public static Storage getStorage(){
+        return storage;
+    }
 
     @Override
-    public void init() throws ServletException {
+    public void init(){
         this.storage = new Storage();
     }
 
@@ -35,15 +38,19 @@ public class AreaCheckServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Double x = Double.parseDouble(request.getParameter("x"));
-        Double y = Double.parseDouble(request.getParameter("y"));
-        Double r = Double.parseDouble(request.getParameter("r"));
-        Data data = new Data();
-        data.setR(r);
-        data.setX(x);
-        data.setY(y);
-        data.setHitted(AreaChecker.wasHitted(x,y,r));
-        storage.add(data);
-        doGet(request,response);
+        try{
+            Double x = Double.parseDouble(request.getParameter("x"));
+            Double y = Double.parseDouble(request.getParameter("y"));
+            Double r = Double.parseDouble(request.getParameter("r"));
+            Data data = new Data();
+            data.setR(r);
+            data.setX(x);
+            data.setY(y);
+            data.setHitted(AreaChecker.wasHitted(x,y,r));
+            storage.add(data);
+            doGet(request,response);}
+        catch(NumberFormatException e){
+            System.out.println("Пупупупупупупу, ты что дурак?");
+        }
     }
 }

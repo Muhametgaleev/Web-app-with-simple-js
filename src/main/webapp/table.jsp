@@ -12,7 +12,12 @@
     <title>Title</title>
 </head>
 <body>
+<div class="link">
+    <a href="index.jsp">Вернуться назад</a>
+</div>
+
 <table>
+
     <tr>
         <th>HIT</th>
         <th>R</th>
@@ -28,5 +33,6 @@
         </tr>
     </c:forEach>
 </table>
+
 </body>
 </html>
