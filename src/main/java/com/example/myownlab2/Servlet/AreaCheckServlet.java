@@ -42,15 +42,20 @@ public class AreaCheckServlet extends HttpServlet {
             Double x = Double.parseDouble(request.getParameter("x"));
             Double y = Double.parseDouble(request.getParameter("y"));
             Double r = Double.parseDouble(request.getParameter("r"));
-            Data data = new Data();
-            data.setR(r);
-            data.setX(x);
-            data.setY(y);
-            data.setHitted(AreaChecker.wasHitted(x,y,r));
-            storage.add(data);
-            doGet(request,response);}
+            if(!((1>r) || (r>5) || x<-3 || x>5 || y>5 || y<-5)){
+                Data data = new Data();
+                data.setR(r);
+                data.setX(x);
+                data.setY(y);
+                data.setHitted(AreaChecker.wasHitted(x,y,r));
+                storage.add(data);
+                doGet(request,response);
+            }
+        }
         catch(NumberFormatException e){
             System.out.println("Пупупупупупупу, ты что дурак?");
+            RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/index.jsp");
+            dispatcher.forward(request, response);
         }
     }
 }

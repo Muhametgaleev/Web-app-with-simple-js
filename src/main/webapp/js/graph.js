@@ -16,10 +16,12 @@ window.addEventListener("load", () =>{
         let checkboxChosen = false;
 
         let radius = parseFloat(document.getElementById("r").value);
-        if (isNaN(radius)){
+        if (isNaN(radius) || (1>radius) || (radius>5)){
+            console.log(radius);
             alert("Wrong radius!");
         }
         else {
+            console.log("1");
             clicked(event);
         }
     })
@@ -205,41 +207,45 @@ window.addEventListener("load", () =>{
         form.append(k);
     }
 
-    function clicked(event){
-        let r = parseFloat( document.getElementById("r").value);
-        let x = event.offsetX;
-        let y = event.offsetY;
+    function clicked(event) {
+        let r = parseFloat(document.getElementById("r").value);
+        if ((1 > r) || (r > 5)) {
+            console.log(radius);
+            alert("Wrong radius!");
+        } else {
+            let x = event.offsetX;
+            let y = event.offsetY;
 
-        ctx.fillStyle = "red";
-        ctx.beginPath();
-        ctx.arc(x, y, 4, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.stroke();
-        ctx.closePath();
-        let rect = canvas.getBoundingClientRect();
-        let clientX = (event.clientX - rect.left - 200) / (side / 3) * r;
-        let clientY = ((-1) * (event.clientY - rect.top - 200)) / (side / 3) * r;
+            ctx.fillStyle = "red";
+            ctx.beginPath();
+            ctx.arc(x, y, 4, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.closePath();
+            let rect = canvas.getBoundingClientRect();
+            let clientX = (event.clientX - rect.left - 200) / (side / 3) * r;
+            let clientY = ((-1) * (event.clientY - rect.top - 200)) / (side / 3) * r;
 
 
-        document.getElementsByName("x").value = clientX;
-        document.getElementsByName("y").value = clientY;
-        document.getElementsByName("r").value = r;
+            document.getElementsByName("x").value = clientX;
+            document.getElementsByName("y").value = clientY;
+            document.getElementsByName("r").value = r;
 
 
-        console.log("Coordinate x: " + clientX,
-            "Coordinate y: " + clientY + "\n" + r);
+            console.log("Coordinate x: " + clientX,
+                "Coordinate y: " + clientY + "\n" + r);
 
-        let form = document.createElement("form");
-        form.setAttribute("method", "POST");
-        form.setAttribute("action", "/MyOwnLab2-1.0-SNAPSHOT/SubmitServlet  ");
-        form.setAttribute("id", "canvas");
-        form.style.display = 'none';
-        addR(form, r);
-        addX(form, clientX);
-        addY(form, clientY);
-        document.body.appendChild(form);
-        form.submit();
+            let form = document.createElement("form");
+            form.setAttribute("method", "POST");
+            form.setAttribute("action", "/MyOwnLab2-1.0-SNAPSHOT/SubmitServlet  ");
+            form.setAttribute("id", "canvas");
+            form.style.display = 'none';
+            addR(form, r);
+            addX(form, clientX);
+            addY(form, clientY);
+            document.body.appendChild(form);
+            form.submit();
+        }
     }
-
 
 })

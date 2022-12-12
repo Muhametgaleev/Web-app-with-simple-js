@@ -10,8 +10,6 @@ import java.io.PrintWriter;
 
 @WebServlet(name = "SubmitServlet", value = "/SubmitServlet")
 public class SubmitServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
